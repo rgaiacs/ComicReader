@@ -1,0 +1,32 @@
+{
+  "version": "0.1.0",
+  "name": "Comic Reader",
+  "description": "Reader for CBZ files",
+  "locales": {
+    "en-US": {
+      "name": "Comics View",
+      "description": "Reader for CBZ files"
+    }
+  },
+  "developer": {
+    "name": "Raniere Silva",
+    "url": "https://github.com/r-gaia-cs/comic-reader"
+  },
+  "launch_path": "/index.html",
+  "type": "privileged",
+  "permissions": {
+    "device-storage:sdcard": {
+      "description": "Required to can load cbz files.",
+      "access": "readonly"
+    }
+  },
+  "default_locale": "en-US",
+  "icons": {
+    "32": "/icons/ComicReader-32.png",
+    "60": "/icons/ComicReader-60.png",
+    "90": "/icons/ComicReader-90.png",
+    "120": "/icons/ComicReader-120.png",
+    "128": "/icons/ComicReader-128.png",
+    "256": "/icons/ComicReader-256.png"
+  }
+}
