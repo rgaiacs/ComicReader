@@ -794,7 +794,7 @@
 				callback(createZipWriter(writer, onerror, dontDeflate));
 			}, onerror);
 		},
-		workerScriptsPath : "",
+		workerScriptsPath : "/zip.js/",
 		useWebWorkers : true
 	};
 
