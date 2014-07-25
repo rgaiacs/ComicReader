@@ -24,14 +24,14 @@
 
 <body role="application" id="list-view">
     <section role="region" id="main">
-        <header>
+        <header class="fixed">
             <a id="btn-help"><span class="icon settings-icon help">help</span></a>
             <h1 style='float:left;'>Comic Reader</h1>
             <menu type="toolbar">
                 <a id="btn-file-browser-open">Open</a>
             </menu>
         </header>
-        <article class="scrollable">
+        <article class="scrollable header">
             <div id='loader'>
                 <p>Loading</p>
             </div>
@@ -42,12 +42,12 @@
         </article>
     </section>
     <section role="region" id="help">
-        <header>
+        <header class="fixed">
             <button id='btn-help-close'><span class="icon icon-close">close</span>
             </button>
             <h1 style='float:left;'>Help</h1>
         </header>
-        <article class="scrollable">
+        <article class="scrollable header">
             <p>Comic Reader is a <a href="https://github.com/r-gaia-cs/ComicReader">free/open</a> web app for Firefox OS.</p>
             <p>Comic Reader use the follow third party library:
                 <ul>
@@ -63,7 +63,7 @@
             </button>
             <h1 style='float:left;'>Open File</h1>
         </header>
-        <article class="scrollable">
+        <article class="scrollable header">
             <div id='file-browser-div'>
             </div>
         </article>
