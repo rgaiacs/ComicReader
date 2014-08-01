@@ -1,40 +1,39 @@
-/* Open cbz file from list. */
-function open_cbz() {
-    // Loader
-    var loader = document.getElementById('loader');
-    loader.setAttribute('display', 'block');
+/* Open one page of cbz. */
+function show_page(delta_page) {
+    var new_page = ComicReader.currentPage;
 
     var sdcard = navigator.getDeviceStorage('sdcard');
 
-    var request = sdcard.get(this.innerHTML);
+    var request = sdcard.get(ComicReader.currentComic);
 
     request.onsuccess = function() {
         var file = request.result;
 
-        // Remove old comic
-        var comic = document.getElementById('comic');
-        comic.removeChild(comic.lastChild);
-
-        // Setup new comic
-        var comic_pages = document.createElement('div');
-        comic.appendChild(comic_pages);
-
         zip.createReader(new zip.BlobReader(file), function(reader) {
             // get all entries from the zip
             reader.getEntries(function(entries) {
-                if (entries.length) {
-                    entries.forEach(function(entrie) {
-                        var dataURI = entrie.filename.split('.').pop();
-                        entrie.getData(new zip.Data64URIWriter('image/' + dataURI),
-                            function(text) {
-                                image = document.createElement('img');
-                                image.setAttribute('src', text);
-                                comic_pages.appendChild(image);
-                            }, function(current, total) {
-                                // onprogress callback
-                            });
-                    });
+                if (entries.length && new_page + delta_page >= 0 &&
+                        new_page + delta_page < entries.length) {
+                    ComicReader.currentPage = new_page = new_page + delta_page;
 
+                    // Remove old comic
+                    var comic = document.getElementById('comic');
+                    comic.removeChild(comic.lastChild);
+
+                    // Setup new comic
+                    var comic_pages = document.createElement('div');
+                    comic.appendChild(comic_pages);
+
+                    var entrie = entries[new_page];
+                    var dataURI = entrie.filename.split('.').pop();
+                    entrie.getData(new zip.Data64URIWriter('image/' + dataURI),
+                        function(text) {
+                            image = document.createElement('img');
+                            image.setAttribute('src', text);
+                            comic_pages.appendChild(image);
+                        }, function(current, total) {
+                            // onprogress callback
+                        });
                     reader.close(function() {});
                     loader.setAttribute('display', 'none');
                 }
@@ -49,6 +48,14 @@ function open_cbz() {
     request.onerror = function() {
         console.warn("Unable to open file. " + this.error);
     };
+}
+
+
+/* Open cbz file from list. */
+function open_cbz() {
+    ComicReader.currentComic = this.innerHTML;
+    ComicReader.currentPage = 0;
+    show_page(0);
 }
 
 /* List files at SD Card. */
@@ -86,3 +93,7 @@ function list_files() {
         alert(this.error);
     };
 }
+
+var ComicReader = new Object();
+ComicReader.currentComic = null;
+ComicReader.currentPage = null;

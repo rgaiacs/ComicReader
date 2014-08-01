@@ -135,3 +135,9 @@ article h3 {
         color: gray;
     }
 }
+[role="toolbar"] {
+    background: none repeat scroll 0% 0% rgba(0, 0, 0, 1);
+}
+.scrollable.header {
+    height: calc(100% - 9rem);
+}

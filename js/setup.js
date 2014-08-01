@@ -20,4 +20,10 @@
         document.querySelector('#help').setAttribute('style', 'display:none;');
         document.querySelector('#file-browser').setAttribute('style', 'display:none;');
     });
+    document.querySelector('.action-icon.back').addEventListener('click', function() {
+        show_page(-1);
+    });
+    document.querySelector('.action-icon.forward').addEventListener('click', function() {
+        show_page(1);
+    });
 })();
