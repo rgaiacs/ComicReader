@@ -139,5 +139,8 @@ article h3 {
     background: none repeat scroll 0% 0% rgba(0, 0, 0, 1);
 }
 .scrollable.header {
+    height: calc(100% - 5rem);
+}
+.scrollable.header.toolbar {
     height: calc(100% - 9rem);
 }
