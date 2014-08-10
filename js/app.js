@@ -60,40 +60,45 @@ function open_cbz() {
 
 /* List files at SD Card. */
 function list_files() {
-    var list_div = document.getElementById("file-browser-div");
+    if (!ComicReader.haveList) {
+        var list_div = document.getElementById("file-browser-div");
 
-    // Clean old list
-    list_div.removeChild(list_div.lastChild);
+        // Clean old list
+        list_div.removeChild(list_div.lastChild);
 
-    // Add new list
-    var list = document.createElement('ul');
-    list_div.appendChild(list);
+        // Add new list
+        var list = document.createElement('ul');
+        list_div.appendChild(list);
 
-    var sdcard = navigator.getDeviceStorage("sdcard");
+        var sdcard = navigator.getDeviceStorage("sdcard");
 
-    var cursor = sdcard.enumerate();
+        var cursor = sdcard.enumerate();
 
-    cursor.onsuccess = function() {
-        if (this.result) {
-            var filename = this.result.name;
+        cursor.onsuccess = function() {
+            if (this.result) {
+                var filename = this.result.name;
 
-            if (filename.endsWith('.cbz')) {
-                var new_file = document.createElement('li');
-                new_file.innerHTML = filename;
-                new_file.addEventListener('click', open_cbz);
-                list.appendChild(new_file);
+                if (filename.endsWith('.cbz')) {
+                    var new_file = document.createElement('li');
+                    new_file.innerHTML = filename;
+                    new_file.addEventListener('click', open_cbz);
+                    list.appendChild(new_file);
+                }
+
+                this.
+                continue ();
             }
+        };
 
-            this.
-            continue ();
-        }
-    };
+        cursor.onerror = function() {
+            alert(this.error);
+        };
 
-    cursor.onerror = function() {
-        alert(this.error);
-    };
+        ComicReader.haveList = true;
+    }
 }
 
 var ComicReader = new Object();
 ComicReader.currentComic = null;
 ComicReader.currentPage = null;
+ComicReader.haveList = false;
