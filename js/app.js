@@ -39,14 +39,14 @@ function show_page(delta_page) {
                 }
             });
         }, function(error) {
-            // onerror callback
+            console.log("Unable to get page: " + error);
         });
 
         document.querySelector("#btn-file-browser-close").click();
     };
 
     request.onerror = function() {
-        console.warn("Unable to open file. " + this.error);
+        console.warn("Unable to open file: " + this.error.name);
     };
 }
 
@@ -91,7 +91,7 @@ function list_files() {
         };
 
         cursor.onerror = function() {
-            alert(this.error);
+            console.log("Unable to list SD card: " + this.error);
         };
 
         ComicReader.haveList = true;
